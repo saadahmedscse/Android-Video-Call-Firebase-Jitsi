@@ -86,6 +86,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             .setPopupDialogIcon(R.drawable.ic_logout)
             .setPopupDialogIconTint(R.color.colorRed)
             .setPositiveButtonBackground(R.drawable.ripple_bg_main_5)
+            .setNegativeButtonBackground(R.drawable.ripple_bg_light_grey_5)
             .showDialog(object : OnDialogButtonClickListener() {
                 override fun onNegativeClicked(dialog: Dialog?) {
                     super.onNegativeClicked(dialog)
