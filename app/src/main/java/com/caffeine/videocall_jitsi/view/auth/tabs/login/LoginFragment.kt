@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.caffeine.videocall_jitsi.R
 import com.caffeine.videocall_jitsi.databinding.FragmentLoginBinding
+import com.caffeine.videocall_jitsi.view.auth.AuthActivity
 import com.saadahmedsoft.base.BaseFragment
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -17,6 +18,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     override fun onFragmentCreate(savedInstanceState: Bundle?) {
         //
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        (activity as AuthActivity).setDefaultTab()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun observeData() {}
