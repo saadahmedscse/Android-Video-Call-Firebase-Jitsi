@@ -85,6 +85,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             .setDescription("Are you sure you want to logout? This action cannot be undone.")
             .setPopupDialogIcon(R.drawable.ic_logout)
             .setPopupDialogIconTint(R.color.colorRed)
+            .setPositiveButtonText("Logout")
             .setPositiveButtonBackground(R.drawable.ripple_bg_main_5)
             .setNegativeButtonBackground(R.drawable.ripple_bg_light_grey_5)
             .showDialog(object : OnDialogButtonClickListener() {
