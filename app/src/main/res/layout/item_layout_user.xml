@@ -26,7 +26,7 @@
             android:elevation="@dimen/_2sdp"
             android:fontFamily="@font/cubano"
             android:gravity="center"
-            android:text="@{item.name.charAt(0)}"
+            android:text="@{Character.toString(item.name.charAt(0))}"
             android:textColor="@color/static_main"
             android:textSize="@dimen/_25ssp"
             app:layout_constraintBottom_toBottomOf="parent"
