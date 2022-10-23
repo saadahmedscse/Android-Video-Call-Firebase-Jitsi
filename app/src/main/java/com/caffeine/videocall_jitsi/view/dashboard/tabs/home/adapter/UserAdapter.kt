@@ -17,5 +17,6 @@ class UserAdapter(private val listener: OnItemActionListener<User>) :
         binding.btnCall.onClicked {
             listener.onItemClickListener(binding.root, item, position)
         }
+        binding.root.onClicked {}
     }
 }
