@@ -35,6 +35,10 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
 
     private fun validate(): Boolean {
         when {
+            binding.etName.gText().isBlank() -> {
+                binding.etName.error = "Name is required"
+                return false
+            }
             binding.etEmail.gText().isBlank() -> {
                 binding.etEmail.error = "Email is required"
                 return false
@@ -76,6 +80,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
 
     private fun updateUserData(auth: FirebaseAuth) {
         val user = HashMap<String, String>()
+        user["name"] = binding.etName.gText()
         user["uid"] = auth.currentUser?.uid!!
         user["email"] = binding.etEmail.gText()
         user["password"] = binding.etPassword.gText()
