@@ -47,17 +47,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val list = ArrayList<User>()
-                val listFiltered = ArrayList<User>()
                 val uid = SessionManager.getInstance(requireContext()).uid
                 for (item in snapshot.children) {
-                    item.getValue(User::class.java)?.let { list.add(it) }
-                }
-                for (item in list) {
-                    if (item.uid != uid) {
-                        listFiltered.add(item)
+                    if (item.getValue(User::class.java)?.uid != uid) {
+                        item.getValue(User::class.java)?.let { list.add(it) }
                     }
                 }
-                adapter.addItems(listFiltered)
+                adapter.addItems(list)
                 dialog.dismissDialog()
             }
 
