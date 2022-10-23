@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "482041006052",
+    "project_id": "video-call---jitsi",
+    "storage_bucket": "video-call---jitsi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482041006052:android:d31650f397e9cb7c0fe9f1",
+        "android_client_info": {
+          "package_name": "com.caffeine.videocall_jitsi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482041006052-90fdqnv9ncd1b9eoudn1r8r8al0cnk8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAipom7vChnZYl8vbTOD6GDDSRqVU_z8zU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482041006052-90fdqnv9ncd1b9eoudn1r8r8al0cnk8t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

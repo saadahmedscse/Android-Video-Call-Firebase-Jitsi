@@ -2,10 +2,17 @@ package com.saadahmedsoft.base.utils
 
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.FirebaseDatabase
+import com.saadahmedsoft.base.utils.Constants.App.APP_NAME
 
 class Constants {
     object App {
         const val APP_NAME = "Doctor BD"
+    }
+
+    object Database {
+        val databaseReference = FirebaseDatabase.getInstance().reference.child(APP_NAME)
+        val userRef = databaseReference.child("users")
     }
 
     object Booleans {
