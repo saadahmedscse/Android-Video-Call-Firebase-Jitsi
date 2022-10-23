@@ -58,6 +58,7 @@
                 tools:ignore="ContentDescription" />
 
             <EditText
+                android:id="@+id/et_email"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_10sdp"

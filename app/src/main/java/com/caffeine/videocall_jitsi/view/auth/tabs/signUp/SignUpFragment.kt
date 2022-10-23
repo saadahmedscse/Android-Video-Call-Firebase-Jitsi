@@ -90,6 +90,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
                         .addDestination(DashboardActivity::class.java)
                         .addTransition(Anim.FADE)
                         .finish(requireActivity())
+                    dialog.dismissDialog()
                 }
                 else {
                     longSnackBar(it.exception?.localizedMessage!!)
