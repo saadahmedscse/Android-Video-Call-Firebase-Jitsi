@@ -5,16 +5,21 @@ import android.view.View
 import com.caffeine.videocall_jitsi.databinding.FragmentHomeBinding
 import com.caffeine.videocall_jitsi.services.model.User
 import com.caffeine.videocall_jitsi.utils.SessionManager
+import com.caffeine.videocall_jitsi.view.auth.AuthActivity
 import com.caffeine.videocall_jitsi.view.dashboard.tabs.home.adapter.UserAdapter
 import com.caffeine.videocall_jitsi.view.utils.CustomDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.saadahmedsoft.base.BaseFragment
 import com.saadahmedsoft.base.helper.linearLayoutManager
+import com.saadahmedsoft.base.helper.onClicked
 import com.saadahmedsoft.base.utils.Constants.Booleans.FALSE
 import com.saadahmedsoft.base.utils.Constants.Database.userRef
 import com.saadahmedsoft.interfaces.OnItemActionListener
+import com.saadahmedsoft.shortintent.Anim
+import com.saadahmedsoft.shortintent.ShortIntent
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate), OnItemActionListener<User> {
     override val title: String
@@ -34,6 +39,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.recyclerView.adapter = adapter
 
         fetchUsers()
+
+        binding.btnLogout.onClicked {
+            onLogoutButtonClicked()
+        }
     }
 
     override fun observeData() {}
@@ -62,5 +71,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 longSnackBar(error.message)
             }
         })
+    }
+
+    private fun onLogoutButtonClicked() {
+        val session = SessionManager.getInstance(requireContext())
+        session.uid = ""
+        FirebaseAuth.getInstance().signOut()
+
+        ShortIntent.getInstance(requireActivity())
+            .addDestination(AuthActivity::class.java)
+            .addTransition(Anim.FADE)
+            .finish(requireActivity())
     }
 }
