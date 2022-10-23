@@ -1,4 +1,4 @@
-package com.caffeine.videocall_jitsi.view.dashboard.tabs
+package com.caffeine.videocall_jitsi.view.dashboard.tabs.home
 
 import android.os.Bundle
 import com.caffeine.videocall_jitsi.databinding.FragmentHomeBinding
