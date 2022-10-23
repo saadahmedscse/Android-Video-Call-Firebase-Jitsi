@@ -1,7 +1,9 @@
 package com.caffeine.videocall_jitsi.view.dashboard.tabs.home
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import com.caffeine.videocall_jitsi.R
 import com.caffeine.videocall_jitsi.databinding.FragmentHomeBinding
 import com.caffeine.videocall_jitsi.services.model.User
 import com.caffeine.videocall_jitsi.utils.SessionManager
@@ -18,6 +20,9 @@ import com.saadahmedsoft.base.helper.onClicked
 import com.saadahmedsoft.base.utils.Constants.Booleans.FALSE
 import com.saadahmedsoft.base.utils.Constants.Database.userRef
 import com.saadahmedsoft.interfaces.OnItemActionListener
+import com.saadahmedsoft.popupdialog.PopupDialog
+import com.saadahmedsoft.popupdialog.Styles
+import com.saadahmedsoft.popupdialog.listener.OnDialogButtonClickListener
 import com.saadahmedsoft.shortintent.Anim
 import com.saadahmedsoft.shortintent.ShortIntent
 
@@ -74,6 +79,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun onLogoutButtonClicked() {
+        PopupDialog.getInstance(requireContext())
+            .setStyle(Styles.STANDARD)
+            .setHeading("Logout")
+            .setDescription("Are you sure you want to logout? This action cannot be undone.")
+            .setPopupDialogIcon(R.drawable.ic_logout)
+            .setPopupDialogIconTint(R.color.colorRed)
+            .setPositiveButtonBackground(R.drawable.ripple_bg_main_5)
+            .showDialog(object : OnDialogButtonClickListener() {
+                override fun onNegativeClicked(dialog: Dialog?) {
+                    super.onNegativeClicked(dialog)
+                }
+
+                override fun onPositiveClicked(dialog: Dialog?) {
+                    onDialogPositiveButtonClicked(dialog!!)
+                }
+            })
+    }
+
+    private fun onDialogPositiveButtonClicked(dialog: Dialog) {
         val session = SessionManager.getInstance(requireContext())
         session.uid = ""
         FirebaseAuth.getInstance().signOut()
@@ -82,5 +106,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             .addDestination(AuthActivity::class.java)
             .addTransition(Anim.FADE)
             .finish(requireActivity())
+        dialog.dismiss()
     }
 }
