@@ -27,6 +27,7 @@ public class CustomDialog {
                 .setLottieRawRes(R.raw.loading)
                 .setCancelable(false)
                 .showDialog();
+        instance = null;
     }
 
     public void dismissDialog() {
