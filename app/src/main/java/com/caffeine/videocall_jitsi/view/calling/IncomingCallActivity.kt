@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.caffeine.videocall_jitsi.api.RetroClient
 import com.caffeine.videocall_jitsi.databinding.ActivityIncomingCallBinding
@@ -24,6 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityIncomingCallBinding::inflate) {
     override val toolbarBinding: AppToolbarBinding?
         get() = null
@@ -35,6 +37,13 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
     private lateinit var player: RingtonePlayer
 
     override fun onActivityCreate(savedInstanceState: Bundle?) {
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+        )
+
         player = RingtonePlayer.getInstance(this)
         player.ring()
 
