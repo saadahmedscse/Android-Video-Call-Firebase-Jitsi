@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.caffeine.videocall_jitsi.R
 import com.caffeine.videocall_jitsi.databinding.FragmentHomeBinding
-import com.caffeine.videocall_jitsi.services.model.User
+import com.caffeine.videocall_jitsi.services.model.common.User
 import com.caffeine.videocall_jitsi.utils.SessionManager
 import com.caffeine.videocall_jitsi.view.auth.AuthActivity
 import com.caffeine.videocall_jitsi.view.dashboard.tabs.home.adapter.UserAdapter

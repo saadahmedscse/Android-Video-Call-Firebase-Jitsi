@@ -1,4 +1,4 @@
-package com.caffeine.videocall_jitsi.services.model
+package com.caffeine.videocall_jitsi.services.model.common
 
 data class User(
     val uid: String? = null,

@@ -2,7 +2,7 @@ package com.caffeine.videocall_jitsi.view.dashboard.tabs.home.adapter
 
 import com.caffeine.videocall_jitsi.R
 import com.caffeine.videocall_jitsi.databinding.ItemLayoutUserBinding
-import com.caffeine.videocall_jitsi.services.model.User
+import com.caffeine.videocall_jitsi.services.model.common.User
 import com.saadahmedsoft.base.BaseRecyclerAdapter
 import com.saadahmedsoft.base.helper.onClicked
 import com.saadahmedsoft.interfaces.OnItemActionListener

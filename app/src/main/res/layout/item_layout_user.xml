@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.caffeine.videocall_jitsi.services.model.User" />
+            type="com.caffeine.videocall_jitsi.services.model.common.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
