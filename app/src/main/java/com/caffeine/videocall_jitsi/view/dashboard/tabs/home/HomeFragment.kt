@@ -1,6 +1,7 @@
 package com.caffeine.videocall_jitsi.view.dashboard.tabs.home
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.caffeine.videocall_jitsi.R
@@ -8,6 +9,7 @@ import com.caffeine.videocall_jitsi.databinding.FragmentHomeBinding
 import com.caffeine.videocall_jitsi.services.model.common.User
 import com.caffeine.videocall_jitsi.utils.SessionManager
 import com.caffeine.videocall_jitsi.view.auth.AuthActivity
+import com.caffeine.videocall_jitsi.view.calling.OutgoingCallActivity
 import com.caffeine.videocall_jitsi.view.dashboard.tabs.home.adapter.UserAdapter
 import com.caffeine.videocall_jitsi.view.utils.CustomDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -53,7 +55,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun observeData() {}
 
     override fun onItemClickListener(view: View, item: User, position: Int) {
-        //
+        shortToast("Calling ${item.name}")
+        val i = Intent(requireContext(), OutgoingCallActivity::class.java)
+        i.putExtra("uid", item.uid)
+        i.putExtra("name", item.name)
+        i.putExtra("email", item.email)
+        requireContext().startActivity(i)
     }
 
     private fun fetchUsers() {
