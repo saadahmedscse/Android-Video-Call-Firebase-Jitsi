@@ -28,7 +28,7 @@ class Constants {
     }
 
     object Api {
-        const val BASE_URL = "https://topseba.com/api/"
+        const val BASE_URL = "https://fcm.googleapis.com/fcm/"
     }
 
     object Auth {
