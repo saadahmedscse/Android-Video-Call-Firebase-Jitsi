@@ -14,7 +14,9 @@ import com.caffeine.videocall_jitsi.services.model.api.Data
 import com.caffeine.videocall_jitsi.services.model.api.MessageBody
 import com.caffeine.videocall_jitsi.services.model.api.MessageResponse
 import com.caffeine.videocall_jitsi.services.model.common.User
+import com.caffeine.videocall_jitsi.utils.RingtonePlayer
 import com.saadahmedsoft.base.BaseActivity
+import com.saadahmedsoft.base.helper.delay
 import com.saadahmedsoft.base.helper.onClicked
 import com.saadahmedsoft.base.utils.Constants
 import com.saadahmedsoft.tinydb.TinyDB
@@ -30,7 +32,16 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
     private var name = ""
     private var email = ""
 
+    private lateinit var player: RingtonePlayer
+
     override fun onActivityCreate(savedInstanceState: Bundle?) {
+        player = RingtonePlayer.getInstance(this)
+        player.ring()
+
+        delay(30000) {
+            player.stop()
+        }
+
         uid = intent.getStringExtra("uid")!!
         name = intent.getStringExtra("name")!!
         email = intent.getStringExtra("email")!!
@@ -53,11 +64,13 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
     override fun observeData() {}
 
     private fun onReceiveButtonClicked() {
+        player.stop()
         sendRemoteMessage("accepted")
         onBackButtonPressed()
     }
 
     private fun onHangUpButtonClicked() {
+        player.stop()
         sendRemoteMessage("rejected")
         onBackButtonPressed()
     }
