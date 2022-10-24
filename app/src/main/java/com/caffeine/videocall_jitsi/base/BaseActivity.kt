@@ -74,6 +74,10 @@ abstract class BaseActivity<BINDING: ViewBinding>(
         showToast(message, TOAST_LONG)
     }
 
+    fun onBackButtonPressed() {
+        onBackPressedDispatcher.onBackPressed()
+    }
+
     private fun showSnackBar(message: String, duration: Int) {
         snackBar(this, _binding.root, message, duration)
     }

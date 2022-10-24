@@ -1,7 +1,6 @@
 package com.caffeine.videocall_jitsi.view.calling
 
 import android.os.Bundle
-import com.caffeine.videocall_jitsi.R
 import com.caffeine.videocall_jitsi.databinding.ActivityOutgoingCallBinding
 import com.caffeine.videocall_jitsi.databinding.AppToolbarBinding
 import com.caffeine.videocall_jitsi.services.model.common.User
@@ -20,7 +19,7 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
         )
 
         binding.btnDisconnect.onClicked {
-            onBackPressedDispatcher.onBackPressed()
+            onBackButtonPressed()
         }
     }
 
