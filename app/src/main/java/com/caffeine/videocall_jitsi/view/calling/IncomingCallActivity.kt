@@ -113,6 +113,7 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
             if (type != null) {
                 if (type == "hangup") {
                     onBackButtonPressed()
+                    player.stop()
                     longToast("Call Cancelled")
                 }
             }
