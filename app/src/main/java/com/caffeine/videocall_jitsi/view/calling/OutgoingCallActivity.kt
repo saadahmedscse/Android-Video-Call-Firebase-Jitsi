@@ -1,8 +1,12 @@
 package com.caffeine.videocall_jitsi.view.calling
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.caffeine.videocall_jitsi.api.RetroClient
 import com.caffeine.videocall_jitsi.databinding.ActivityOutgoingCallBinding
 import com.caffeine.videocall_jitsi.databinding.AppToolbarBinding
@@ -10,7 +14,6 @@ import com.caffeine.videocall_jitsi.services.model.api.Data
 import com.caffeine.videocall_jitsi.services.model.api.MessageBody
 import com.caffeine.videocall_jitsi.services.model.api.MessageResponse
 import com.caffeine.videocall_jitsi.services.model.common.User
-import com.google.firebase.messaging.FirebaseMessaging
 import com.saadahmedsoft.base.BaseActivity
 import com.saadahmedsoft.base.helper.onClicked
 import com.saadahmedsoft.base.utils.Constants.Api.FCM_KEY
@@ -42,18 +45,20 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
             onHangUpButtonClicked()
         }
 
-        sendCallToRemoteUser()
+        sendRemoteMessage("ringing")
     }
 
     override fun observeData() {}
 
     private fun onHangUpButtonClicked() {
+        sendRemoteMessage("hangup")
         onBackButtonPressed()
     }
 
-    private fun sendCallToRemoteUser() {
+    private fun sendRemoteMessage(status: String) {
         val myProfile = TinyDB.getInstance(this).getObject<User>("my_profile", User::class.java)
         val data = Data(
+            status,
             uid,
             myProfile.name!!,
             myProfile.email!!,
@@ -87,5 +92,36 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
 
     private fun startRingingSound() {
         //
+    }
+
+    private val callStatusListener = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val type = intent?.getStringExtra("call_status")
+            if (type != null) {
+                if (type == "rejected") {
+                    onBackButtonPressed()
+                    longToast("Call Rejected")
+                }
+                else if (type == "accepted") {
+                    onBackButtonPressed()
+                    longToast("Call Accepted")
+                }
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        LocalBroadcastManager.getInstance(applicationContext).registerReceiver(
+            callStatusListener,
+            IntentFilter("ON_CALL_ACTION")
+        )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(
+            callStatusListener
+        )
     }
 }
