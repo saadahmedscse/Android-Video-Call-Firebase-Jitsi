@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="item"
+            type="com.caffeine.videocall_jitsi.services.model.common.User" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorDarkGrey"
+        tools:context=".view.calling.IncomingCallActivity">
+
+        <TextView
+            android:id="@+id/tv_image"
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="@dimen/_75sdp"
+            android:background="@drawable/circle_light_grey"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_120sdp"
+            android:fontFamily="@font/cubano"
+            android:textSize="@dimen/_32ssp"
+            android:textColor="@color/static_main"
+            android:text="@{Character.toString(item.name.charAt(0))}"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/medium"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/static_white"
+            android:layout_below="@id/tv_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:text="@{item.name}"/>
+
+        <ImageView
+            android:id="@+id/btn_disconnect"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_75sdp"
+            android:background="@drawable/ripple_circle_red"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/ic_call_disconnet"
+            tools:ignore="ContentDescription"
+            app:tint="@color/static_white" />
+
+        <ImageView
+            android:id="@+id/btn_receive"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_75sdp"
+            android:background="@drawable/ripple_circle_main"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/ic_call"
+            tools:ignore="ContentDescription"
+            app:tint="@color/static_white" />
+
+    </RelativeLayout>
+
+</layout>
