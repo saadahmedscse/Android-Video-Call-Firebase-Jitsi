@@ -40,6 +40,7 @@
             android:text="@{item.name}"/>
 
         <TextView
+            android:id="@+id/tv_calling"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/regular"
@@ -47,8 +48,7 @@
             android:textColor="@color/colorGrey"
             android:layout_below="@id/tv_name"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_100sdp"
-            android:text="Calling"/>
+            android:layout_marginTop="@dimen/_100sdp"/>
 
         <ImageView
             android:id="@+id/btn_disconnect"

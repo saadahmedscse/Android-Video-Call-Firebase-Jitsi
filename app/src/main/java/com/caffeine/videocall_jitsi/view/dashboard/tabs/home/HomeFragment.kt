@@ -27,6 +27,7 @@ import com.saadahmedsoft.popupdialog.Styles
 import com.saadahmedsoft.popupdialog.listener.OnDialogButtonClickListener
 import com.saadahmedsoft.shortintent.Anim
 import com.saadahmedsoft.shortintent.ShortIntent
+import com.saadahmedsoft.tinydb.TinyDB
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate), OnItemActionListener<User> {
     override val title: String
@@ -55,7 +56,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun observeData() {}
 
     override fun onItemClickListener(view: View, item: User, position: Int) {
-        shortToast("Calling ${item.name}")
         val i = Intent(requireContext(), OutgoingCallActivity::class.java)
         i.putExtra("uid", item.uid)
         i.putExtra("name", item.name)
@@ -72,6 +72,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 for (item in snapshot.children) {
                     if (item.getValue(User::class.java)?.uid != uid) {
                         item.getValue(User::class.java)?.let { list.add(it) }
+                    }
+                    else {
+                        if (TinyDB.getInstance(requireContext()).getObject<User>("my_profile", User::class.java) == null) {
+                            TinyDB.getInstance(requireContext())
+                                .putObject("my_profile", item.getValue(User::class.java))
+                                .apply()
+                        }
                     }
                 }
                 adapter.addItems(list)
