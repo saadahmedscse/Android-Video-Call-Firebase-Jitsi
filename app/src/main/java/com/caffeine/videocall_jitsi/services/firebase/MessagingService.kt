@@ -24,12 +24,12 @@ class MessagingService : FirebaseMessagingService() {
                 val senderEmail = data["senderEmail"]
                 val senderUid = data["senderUid"]
                 if (uid == SessionManager.getInstance(applicationContext).uid) {
-                    val i = Intent(applicationContext, IncomingCallActivity::class.java)
+                    val i = Intent(this, IncomingCallActivity::class.java)
                     i.putExtra("uid", senderUid)
                     i.putExtra("email", senderEmail)
                     i.putExtra("name", senderName)
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(i)
+                    i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    this.startActivity(i)
                 }
             }
             "accepted" -> {
