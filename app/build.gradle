@@ -65,4 +65,8 @@ dependencies {
     //sSP sDP
     implementation "com.intuit.ssp:ssp-android:$spVersion"
     implementation "com.intuit.sdp:sdp-android:$spVersion"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 }

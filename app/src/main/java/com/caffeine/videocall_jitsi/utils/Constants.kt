@@ -11,7 +11,7 @@ class Constants {
     }
 
     object Database {
-        val databaseReference = FirebaseDatabase.getInstance().reference.child(APP_NAME)
+        private val databaseReference = FirebaseDatabase.getInstance().reference.child(APP_NAME)
         val userRef = databaseReference.child("users")
     }
 
@@ -29,7 +29,6 @@ class Constants {
 
     object Api {
         const val BASE_URL = "https://topseba.com/api/"
-        const val SMS_BASE_URL = "https://api.smsq.global/api/v2/"
     }
 
     object Auth {
