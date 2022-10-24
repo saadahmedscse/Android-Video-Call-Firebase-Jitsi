@@ -14,5 +14,5 @@ ext {
     tinyDBVersion = '1.0.0'
     spVersion = '1.0.6'
     retrofitVersion = '2.9.0'
-    popupDialogVersion = '1.0.0'
+    popupDialogVersion = '1.0.1'
 }

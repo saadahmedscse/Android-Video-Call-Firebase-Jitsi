@@ -6,7 +6,7 @@ import com.saadahmedsoft.tinydb.TinyDB;
 
 public class SessionManager {
 
-    private static volatile TinyDB tinyDB;
+    private static TinyDB tinyDB;
 
     public static SessionManager getInstance(Context context) {
         tinyDB = TinyDB.getInstance(context);

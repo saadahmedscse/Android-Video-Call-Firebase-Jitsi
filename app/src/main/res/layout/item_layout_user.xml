@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.caffeine.videocall_jitsi.services.model.User" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@drawable/ripple_bg_light_grey_5">
+
+        <TextView
+            android:id="@+id/tv_image"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/circle_white"
+            android:elevation="@dimen/_2sdp"
+            android:fontFamily="@font/cubano"
+            android:gravity="center"
+            android:text="@{Character.toString(item.name.charAt(0))}"
+            android:textColor="@color/static_main"
+            android:textSize="@dimen/_25ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/medium"
+            android:maxLines="1"
+            android:text="@{item.name}"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintEnd_toStartOf="@id/btn_call"
+            app:layout_constraintStart_toEndOf="@id/tv_image"
+            app:layout_constraintTop_toTopOf="@id/tv_image" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/medium"
+            android:maxLines="1"
+            android:text="@{item.email}"
+            android:textColor="@color/colorGrey"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@id/btn_call"
+            app:layout_constraintStart_toEndOf="@id/tv_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+        <ImageView
+            android:id="@+id/btn_call"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/ripple_circle_white"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_video"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorRed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
