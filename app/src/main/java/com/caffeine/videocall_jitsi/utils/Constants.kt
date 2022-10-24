@@ -29,6 +29,7 @@ class Constants {
 
     object Api {
         const val BASE_URL = "https://fcm.googleapis.com/fcm/"
+        const val FCM_KEY = "key=AAAAcDviB-Q:APA91bGhAqRsB6HVLibI9au4IG_UTBMc5UpKMoaBcOx27ad6LBq71t42SowkMru4Fcq_HY9G7ZEL3GVvTtUCr2mc8T9sjr6G2ldIogOhwcxFfFkCvb3Y6OHDA7eZuKN72lzCDcQCeLhZ"
     }
 
     object Auth {
