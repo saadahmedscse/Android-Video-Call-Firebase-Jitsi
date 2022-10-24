@@ -19,9 +19,13 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
         )
 
         binding.btnDisconnect.onClicked {
-            onBackButtonPressed()
+            onHangUpButtonClicked()
         }
     }
 
     override fun observeData() {}
+
+    private fun onHangUpButtonClicked() {
+        onBackButtonPressed()
+    }
 }
