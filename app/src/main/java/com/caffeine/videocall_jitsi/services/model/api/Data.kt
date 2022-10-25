@@ -5,5 +5,6 @@ data class Data(
     val uid: String = "",
     val senderName: String = "",
     val senderEmail: String = "",
-    val senderUid: String = ""
+    val senderUid: String = "",
+    val meetingId: String = ""
 )
