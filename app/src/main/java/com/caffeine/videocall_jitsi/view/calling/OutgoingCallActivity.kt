@@ -18,9 +18,14 @@ import com.saadahmedsoft.base.BaseActivity
 import com.saadahmedsoft.base.helper.onClicked
 import com.saadahmedsoft.base.utils.Constants.Api.FCM_KEY
 import com.saadahmedsoft.tinydb.TinyDB
+import org.jitsi.meet.sdk.JitsiMeetActivity
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import org.jitsi.meet.sdk.JitsiMeetUserInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URL
+import java.util.UUID
 
 class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityOutgoingCallBinding::inflate) {
     override val toolbarBinding: AppToolbarBinding?
@@ -29,11 +34,14 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
     private var uid = ""
     private var name = ""
     private var email = ""
+    private var meetingId = ""
 
     override fun onActivityCreate(savedInstanceState: Bundle?) {
         uid = intent.getStringExtra("uid")!!
         name = intent.getStringExtra("name")!!
         email = intent.getStringExtra("email")!!
+
+        meetingId = uid + "_" + UUID.randomUUID().toString().substring(0, 7)
 
         binding.item = User(
             uid,
@@ -51,6 +59,7 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
     override fun observeData() {}
 
     private fun onHangUpButtonClicked() {
+        meetingId = ""
         sendRemoteMessage("hangup")
         onBackButtonPressed()
     }
@@ -62,7 +71,8 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
             uid,
             myProfile.name!!,
             myProfile.email!!,
-            myProfile.uid!!
+            myProfile.uid!!,
+            meetingId
         )
 
         val body = MessageBody("/topics/topseba", data)
@@ -76,7 +86,6 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
             ) {
                 if (response.isSuccessful) {
                     binding.tvCalling.text = "Calling"
-                    startRingingSound()
                 } else {
                     longToast(response.message())
                     onBackButtonPressed()
@@ -90,8 +99,23 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
         })
     }
 
-    private fun startRingingSound() {
-        //
+    private fun initiateMeeting() {
+        val userInfo = Bundle()
+        userInfo.putString("displayName", name)
+        userInfo.putString("email", email)
+
+        val options = JitsiMeetConferenceOptions.Builder()
+            .setServerURL(URL("https://meet.jit.si"))
+            .setRoom(meetingId)
+            .setAudioMuted(false)
+            .setVideoMuted(false)
+            .setAudioOnly(false)
+            .setUserInfo(JitsiMeetUserInfo(userInfo))
+            .setConfigOverride("requireDisplayName", true)
+            .build()
+
+        JitsiMeetActivity.launch(applicationContext, options)
+        finish()
     }
 
     private val callStatusListener = object : BroadcastReceiver() {
@@ -103,8 +127,7 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
                     longToast("Call Rejected")
                 }
                 else if (type == "accepted") {
-                    onBackButtonPressed()
-                    longToast("Call Accepted")
+                    initiateMeeting()
                 }
             }
         }
