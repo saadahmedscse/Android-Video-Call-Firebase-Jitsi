@@ -36,11 +36,14 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
     private var email = ""
     private var meetingId = ""
 
+    private lateinit var myProfile: User
+
     override fun onActivityCreate(savedInstanceState: Bundle?) {
         uid = intent.getStringExtra("uid")!!
         name = intent.getStringExtra("name")!!
         email = intent.getStringExtra("email")!!
 
+        myProfile = TinyDB.getInstance(this).getObject("my_profile", User::class.java)
         meetingId = uid + "_" + UUID.randomUUID().toString().substring(0, 7)
 
         binding.item = User(
@@ -101,8 +104,8 @@ class OutgoingCallActivity : BaseActivity<ActivityOutgoingCallBinding>(ActivityO
 
     private fun initiateMeeting() {
         val userInfo = Bundle()
-        userInfo.putString("displayName", name)
-        userInfo.putString("email", email)
+        userInfo.putString("displayName", myProfile.name)
+        userInfo.putString("email", myProfile.email)
 
         val options = JitsiMeetConferenceOptions.Builder()
             .setServerURL(URL("https://meet.jit.si"))

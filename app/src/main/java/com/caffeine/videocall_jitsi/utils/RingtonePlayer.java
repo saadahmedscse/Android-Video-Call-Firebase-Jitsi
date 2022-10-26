@@ -3,6 +3,8 @@ package com.caffeine.videocall_jitsi.utils;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import androidx.annotation.NonNull;
+
 import com.caffeine.videocall_jitsi.R;
 
 public class RingtonePlayer {
@@ -13,10 +15,9 @@ public class RingtonePlayer {
         mediaPlayer = MediaPlayer.create(context, R.raw.ringtone);
     }
 
+    @NonNull
     public static RingtonePlayer getInstance(Context context) {
-        RingtonePlayer instance;
-        instance = new RingtonePlayer(context);
-        return instance;
+        return new RingtonePlayer(context);
     }
 
     public void ring() {
