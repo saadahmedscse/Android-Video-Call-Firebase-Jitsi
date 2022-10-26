@@ -38,6 +38,8 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
     private var email = ""
     private var meetingId = ""
 
+    private lateinit var myProfile: User
+
     private lateinit var player: RingtonePlayer
 
     override fun onActivityCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,7 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
         )
 
+        myProfile = TinyDB.getInstance(this).getObject("my_profile", User::class.java)
         player = RingtonePlayer.getInstance(this)
         player.ring()
 
@@ -124,8 +127,8 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
 
     private fun initiateMeeting() {
         val userInfo = Bundle()
-        userInfo.putString("displayName", name)
-        userInfo.putString("email", email)
+        userInfo.putString("displayName", myProfile.name)
+        userInfo.putString("email", myProfile.email)
 
         val options = JitsiMeetConferenceOptions.Builder()
             .setServerURL(URL("https://meet.jit.si"))
