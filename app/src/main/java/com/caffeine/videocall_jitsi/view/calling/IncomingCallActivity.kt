@@ -29,7 +29,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.URL
 
-
 class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityIncomingCallBinding::inflate) {
     override val toolbarBinding: AppToolbarBinding?
         get() = null
