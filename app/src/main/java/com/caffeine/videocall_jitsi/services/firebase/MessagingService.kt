@@ -23,11 +23,13 @@ class MessagingService : FirebaseMessagingService() {
                 val senderName = data["senderName"]
                 val senderEmail = data["senderEmail"]
                 val senderUid = data["senderUid"]
+                val meetingId = data["meetingId"]
                 if (uid == SessionManager.getInstance(applicationContext).uid) {
                     val i = Intent(this, IncomingCallActivity::class.java)
                     i.putExtra("uid", senderUid)
                     i.putExtra("email", senderEmail)
                     i.putExtra("name", senderName)
+                    i.putExtra("meetingId", meetingId)
                     i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     this.startActivity(i)
                 }

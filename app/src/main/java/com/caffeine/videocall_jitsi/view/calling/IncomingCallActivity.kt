@@ -21,10 +21,13 @@ import com.saadahmedsoft.base.helper.delay
 import com.saadahmedsoft.base.helper.onClicked
 import com.saadahmedsoft.base.utils.Constants
 import com.saadahmedsoft.tinydb.TinyDB
+import org.jitsi.meet.sdk.JitsiMeetActivity
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import org.jitsi.meet.sdk.JitsiMeetUserInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import java.net.URL
 
 class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityIncomingCallBinding::inflate) {
     override val toolbarBinding: AppToolbarBinding?
@@ -33,6 +36,7 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
     private var uid = ""
     private var name = ""
     private var email = ""
+    private var meetingId = ""
 
     private lateinit var player: RingtonePlayer
 
@@ -54,6 +58,7 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
         uid = intent.getStringExtra("uid")!!
         name = intent.getStringExtra("name")!!
         email = intent.getStringExtra("email")!!
+        meetingId = intent.getStringExtra("meetingId")!!
 
         binding.item = User(
             uid,
@@ -75,7 +80,8 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
     private fun onReceiveButtonClicked() {
         player.stop()
         sendRemoteMessage("accepted")
-        onBackButtonPressed()
+        //initiate meeting
+        initiateMeeting()
     }
 
     private fun onHangUpButtonClicked() {
@@ -114,6 +120,25 @@ class IncomingCallActivity : BaseActivity<ActivityIncomingCallBinding>(ActivityI
                 onBackButtonPressed()
             }
         })
+    }
+
+    private fun initiateMeeting() {
+        val userInfo = Bundle()
+        userInfo.putString("displayName", name)
+        userInfo.putString("email", email)
+
+        val options = JitsiMeetConferenceOptions.Builder()
+            .setServerURL(URL("https://meet.jit.si"))
+            .setRoom(meetingId)
+            .setAudioMuted(false)
+            .setVideoMuted(false)
+            .setAudioOnly(false)
+            .setUserInfo(JitsiMeetUserInfo(userInfo))
+            .setConfigOverride("requireDisplayName", true)
+            .build()
+
+        JitsiMeetActivity.launch(applicationContext, options)
+        finish()
     }
 
     private val callStatusListener = object : BroadcastReceiver() {
